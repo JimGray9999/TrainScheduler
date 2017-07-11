@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+	<!-- CSS links: reset.css, bootstrap.min.css, style.css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+   	<!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<title>Train Scheduler</title>
+</head>
+<body>
+	
+	<div class="panel panel-info">
+  		<div class="panel-body panel-info">
+    		<h2>Train Schedule</h2>
+  		</div>
+  		<table class="table">
+  			<tr>
+  				<th>Train Name</th>
+  				<th>Destination</th>
+  				<th>Frequency (mins.)</th>
+  				<th>First Train Time (24HR)</th>
+  				<th>Minutes Away</th>
+			</tr>
+			<tr>
+				<td>Take Me To</td>
+				<td>Funkytown</td>
+				<td>15</td>
+				<td>16:20</td>
+				<td>(mins away)</td>
+			</tr>
+			<tr>
+				<td>Take Me To</td>
+				<td>Electric Avenue</td>
+				<td>35</td>
+				<td>17:35</td>
+				<td>(mins away)</td>
+			</tr>
+  		</table>
+  		<div class="panel-footer">(all times are in 24-hour military time format)</div>
+	</div>
+
+	<div class="panel panel-info">
+		<div class="panel-body">
+			<h2>Add a Train</h2>
+			<div class="container">
+				<div class="row">
+					<div class="form-group">
+		  				<label class="input-group-trains">Train Name</label>
+		  				<input type="text" id="add-train" class="form-control" placeholder="Train" aria-describedby="add-train">
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group">
+		  				<label class="input-group-trains">Destination</label>
+		  				<input type="text" id="add-destination" class="form-control" placeholder="Destination" aria-describedby="add-destination">
+					</div>
+					<div class="form-group">
+		  				<label class="input-group-trains">Frequency</label>
+		  				<input type="text" id="add-freq" class="form-control" placeholder="Frequency" aria-describedby="add-freq">
+					</div>
+					<div class="form-group">
+		  				<label class="input-group-trains">First Train Time</label>
+		  				<input type="text" id="add-1st-train" class="form-control" placeholder="First Train Time" aria-describedby="add-1st-train">
+					</div>
+				</div>
+				<button class="btn btn-primary" id="new-train">Add Train</button>
+			</div>
+		</div>
+	</div>
+
+<!-- Script list start -->
+	<!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified JavaScript for Bootstrap -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <!-- JavaScript app logic file -->
+    <script src="assets/javascript/app.js"></script>
+<!-- script list end -->
+</body>
+</html>
