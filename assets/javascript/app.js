@@ -14,10 +14,14 @@ $(document).ready(function() {
     var database = firebase.database();
 
     // inital load, listener for train additions
+    database.ref("/trainListData").on("value", function(snapshot) {
+        // load current trains in the firebase database (if any)
 
-    // load current trains in the firebase database
+        // dynamically update HTML table, add new train to bottom
+        // query the id
+        // loop through all of the values
+    });
 
-    // dynamically update HTML table, add new train to bottom
 
     // on click for train submit button
     $("#new-train").on("click", function() {
@@ -36,8 +40,12 @@ $(document).ready(function() {
         console.log(trainFreq);
         console.log(train1st);
 
-        // add record to firebase
+        // add record to firebase, add child
 
         // clear values from form
+        $("#add-train").text("");
+        $("#add-destination").text("");
+        $("#add-freq").text("");
+        $("#add-1st-train").text("");
     });
 });
