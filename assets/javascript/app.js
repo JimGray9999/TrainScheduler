@@ -13,8 +13,10 @@ $(document).ready(function() {
     // initial variables
     var database = firebase.database();
 
+    console.log(database.ref().child("train1"));
+
     // inital load, listener for train additions
-    database.ref("/trainListData").on("value", function(snapshot) {
+    database.ref().on("value", function(snapshot) {
         // load current trains in the firebase database (if any)
 
         // dynamically update HTML table, add new train to bottom
