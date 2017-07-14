@@ -59,6 +59,7 @@ $(document).ready(function() {
             "</td><td class='mins-away'>" + minsAway + 
             "</td></tr>");
 
+        //TODO: developer - have time show in red if less than 5 minutes away
         if (minsAway > 5){
           $("mins-away").addClass("outOfTime");
         } else {
