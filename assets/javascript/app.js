@@ -12,16 +12,45 @@ $(document).ready(function() {
 
     // initial variables
     var database = firebase.database();
+    var minsAway = 0;
 
-    console.log(database.ref().child("train1"));
+    const dbRefSchedule = database.ref('/train');
+
+    console.log(dbRefSchedule);
+
+    //TODO developer: have the time update as it changes realtime
+    var now = moment().format("HH:mm");
+    $("#current-time").html("The Current time is: " + now);
 
     // inital load, listener for train additions
-    database.ref().on("value", function(snapshot) {
+    dbRefSchedule.on("child_added", function(snapshot) {
         // load current trains in the firebase database (if any)
+        console.log("children: ", snapshot.key);
+
+        var sv = snapshot.val();
+
+        var compareTrain = moment(sv.firstTrain, "HH:mm");
+        console.log(compareTrain);
+
+        var diff = moment.unix(compareTrain);
+
+        console.log(diff);
+
+        minsAway = moment((diff - compareTrain), "mm");
+
+        console.log(diff);
+
+
 
         // dynamically update HTML table, add new train to bottom
-        // query the id
-        // loop through all of the values
+        $("#train-schedule").append(
+            "<tr><td>" + sv.train + 
+            "</td><td>" + sv.dest + 
+            "</td><td>" + sv.freq +
+            "</td><td>" + sv.firstTrain + 
+            "</td><td>" + minsAway + 
+            "</td></tr>");
+
     });
 
 
@@ -43,6 +72,13 @@ $(document).ready(function() {
         console.log(train1st);
 
         // add record to firebase, add child
+        var newTrain = dbRefSchedule.push();
+        newTrain.set({
+            train: trainName,
+            dest: trainDest,
+            freq: trainFreq,
+            firstTrain: train1st
+        });
 
         // clear values from form
         $("#add-train").text("");
