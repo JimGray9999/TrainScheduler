@@ -46,7 +46,7 @@ $(document).ready(function() {
 
         console.log("remainder: " + remains);
 
-        minsAway = moment().format("mm") - remains;
+        minsAway = sv.freq - remains;
 
         console.log("Mins Away: " + minsAway);
 
