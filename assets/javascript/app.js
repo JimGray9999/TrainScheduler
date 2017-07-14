@@ -19,28 +19,36 @@ $(document).ready(function() {
     console.log(dbRefSchedule);
 
     //TODO developer: have the time update as it changes realtime
-    var now = moment().format("HH:mm");
-    $("#current-time").html("The Current time is: " + now);
+    var now24hr = moment().format("HH:mm");
+    var now12hr = moment().format("[or simply] LT");
+    $("#current-time").html("The Current time is: " + now24hr + " (" + now12hr + ")");
 
     // inital load, listener for train additions
     dbRefSchedule.on("child_added", function(snapshot) {
         // load current trains in the firebase database (if any)
-        console.log("children: ", snapshot.key);
+        // console.log("children: ", snapshot.key);
 
         var sv = snapshot.val();
 
-        var compareTrain = moment(sv.firstTrain, "HH:mm");
-        console.log(compareTrain);
+        console.log("train freq: " + sv.freq);
 
-        var diff = moment.unix(compareTrain);
+        console.log("first train time: " + sv.firstTrain);
 
-        console.log(diff);
+        var compareTrain = moment(sv.firstTrain, "HH:mm").subtract(1, "years");
 
-        minsAway = moment((diff - compareTrain), "mm");
+        console.log("converted first train time: " + compareTrain); 
 
-        console.log(diff);
+        var timeDiff = moment().diff(compareTrain, "minutes");
 
+        var remains = timeDiff % sv.freq;
 
+        console.log("time difference: " + timeDiff);
+
+        console.log("remainder: " + remains);
+
+        minsAway = moment().format("mm") - remains;
+
+        console.log("Mins Away: " + minsAway);
 
         // dynamically update HTML table, add new train to bottom
         $("#train-schedule").append(
@@ -48,8 +56,14 @@ $(document).ready(function() {
             "</td><td>" + sv.dest + 
             "</td><td>" + sv.freq +
             "</td><td>" + sv.firstTrain + 
-            "</td><td>" + minsAway + 
+            "</td><td class='mins-away'>" + minsAway + 
             "</td></tr>");
+
+        if (minsAway > 5){
+          $("mins-away").addClass("outOfTime");
+        } else {
+          $("mins-away").removeClass("outOfTime");
+        };
 
     });
 
@@ -66,10 +80,10 @@ $(document).ready(function() {
         var train1st = $("#add-1st-train").val().trim();
 
         // console log test
-        console.log(trainName);
-        console.log(trainDest);
-        console.log(trainFreq);
-        console.log(train1st);
+        // console.log(trainName);
+        // console.log(trainDest);
+        // console.log(trainFreq);
+        // console.log(train1st);
 
         // add record to firebase, add child
         var newTrain = dbRefSchedule.push();
